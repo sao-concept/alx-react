@@ -4,7 +4,7 @@ import { getFullYear, getFooterCopy } from "./utils";
 
 function App() {
   return (
-    <div>
+    <>
       <div className="App-header">
         <img src={holberton_logo} alt="holberton logo" />
         <h1>School dashboard</h1>
@@ -17,7 +17,7 @@ function App() {
           Copyright {getFullYear()} - {getFooterCopy(true)}
         </p>
       </div>
-    </div>
+    </>
   );
 }
 
