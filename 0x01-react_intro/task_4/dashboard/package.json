@@ -11,7 +11,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://github.com/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard",
+  "homepage": "https://sao-concept.github.io/alx-react",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
