@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/css/main.7e48e469.css",
+    "main.js": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/js/main.115aed65.js",
+    "static/js/453.59b8a61b.chunk.js": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/js/453.59b8a61b.chunk.js",
+    "static/media/holberton-logo.jpg": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/media/holberton-logo.24bab5d633e36ca8d17e.jpg",
+    "index.html": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/index.html",
+    "main.7e48e469.css.map": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/css/main.7e48e469.css.map",
+    "main.115aed65.js.map": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/js/main.115aed65.js.map",
+    "453.59b8a61b.chunk.js.map": "/sao-concept/alx-react/tree/main/0x01-react_intro/task_4/dashboard/static/js/453.59b8a61b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e48e469.css",
+    "static/js/main.115aed65.js"
+  ]
+}
