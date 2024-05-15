@@ -54,7 +54,6 @@ const Notifications = ({ displayDrawer, listNotifications }) => {
     </Fragment>
   );
 };
-
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
