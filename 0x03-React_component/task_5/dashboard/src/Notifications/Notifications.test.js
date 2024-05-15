@@ -90,7 +90,6 @@ describe("listNotifications without values", () => {
       '<li data-notification-type="default">No new notification for now</li>'
     );
   });
-
   it("without listNotifications", () => {
     const wrapper = shallow(<Notifications displayDrawer />);
     const nItem = wrapper.find("NotificationItem");
