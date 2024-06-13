@@ -1,26 +1,18 @@
-import React, { Component } from "react";
+import React, { PureComponent, Component } from "react";
+import { connect } from "react-redux";
+import { fetchNotifications } from "../actions/notificationActionCreators";
 import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
-import NotificationItemShape from "./NotificationItemShape";
 import closeIcon from "../assets/close-icon.png";
 import { StyleSheet, css } from "aphrodite";
 
-class Notifications extends Component {
+export class Notifications extends Component {
   constructor(props) {
     super(props);
-    this.markAsRead = this.markAsRead.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return (
-      nextProps.listNotifications.length >
-        this.props.listNotifications.length ||
-      nextProps.displayDrawer !== this.props.displayDrawer
-    );
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
+  componentDidMount() {
+    this.props.fetchNotifications();
   }
 
   render() {
@@ -29,6 +21,7 @@ class Notifications extends Component {
       listNotifications,
       handleDisplayDrawer,
       handleHideDrawer,
+      markNotificationAsRead,
     } = this.props;
 
     const menuPStyle = css(
@@ -67,20 +60,24 @@ class Notifications extends Component {
               Here is the list of notifications
             </p>
             <ul className={css(styles.notificationsUL)}>
-              {listNotifications.length === 0 && (
-                <NotificationItem value="No new notification for now" />
+              {!listNotifications && (
+                <NotificationItem
+                  type="noNotifications"
+                  value="No new notifications for now"
+                />
               )}
 
-              {listNotifications.map((notification) => (
-                <NotificationItem
-                  key={notification.id}
-                  id={notification.id}
-                  type={notification.type}
-                  value={notification.value}
-                  html={notification.html}
-                  markAsRead={this.markAsRead}
-                />
-              ))}
+              {listNotifications &&
+                Object.values(listNotifications).map((notification) => (
+                  <NotificationItem
+                    key={notification.guid}
+                    id={notification.guid}
+                    type={notification.type}
+                    value={notification.value}
+                    html={notification.html}
+                    markAsRead={markNotificationAsRead}
+                  />
+                ))}
             </ul>
           </div>
         )}
@@ -91,16 +88,19 @@ class Notifications extends Component {
 
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: [],
+  listNotifications: null,
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
+  markNotificationAsRead: () => {},
+  fetchNotifications: () => {},
 };
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
+  markNotificationAsRead: PropTypes.func,
 };
 
 const cssVars = {
@@ -171,8 +171,6 @@ const styles = StyleSheet.create({
   },
 
   notifications: {
-    float: "right",
-    // border: `3px dashed ${cssVars.mainColor}`,
     padding: "10px",
     marginBottom: "20px",
     animationName: [borderKeyframes],
@@ -181,7 +179,6 @@ const styles = StyleSheet.create({
     animationFillMode: "forwards",
     ":hover": {
       border: `3px dashed deepSkyBlue`,
-      // animationFillMode: "forwards",
     },
     [screenSize.small]: {
       float: "none",
@@ -191,12 +188,12 @@ const styles = StyleSheet.create({
       fontSize: "20px",
       ":hover": {
         border: "none",
-        // animationFillMode: "forwards",
       },
       position: "absolute",
       background: "white",
       height: "110vh",
       width: "100vw",
+      zIndex: 10,
     },
   },
 
@@ -216,4 +213,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Notifications;
+const mapStateToProps = (state) => {
+  return {
+    listNotifications: state.notifications.get("messages"),
+  };
+};
+
+const mapDispatchToProps = {
+  fetchNotifications,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
